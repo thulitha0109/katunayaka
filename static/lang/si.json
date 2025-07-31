@@ -1,0 +1,71 @@
+{
+  "name": "කටුනායක සීදුව නගර සභාව",
+  "payment": "ගෙවීම්",
+  "nav": [
+    {
+      "text": "මුල් පිටුව",
+      "link": "home.html"
+    },
+    {
+      "text": "නගර සභාව",
+      "sub_menu": [
+        { "text": "දර්ශනය සහ මෙහෙවර", "link": "vision_mission.md" },
+        { "text": "ඉතිහාසය", "link": "history.md" },
+        { "text": "සාමාන්‍ය තොරතුරු", "link": "general_info.md" },
+        {
+          "text": "සභා කළමනාකරණය",
+          "sub_menu": [
+            { "text": "සභාපති", "link": "chairman.md" },
+            { "text": "උප සභාපති", "link": "vice_chairman.md" },
+            { "text": "ලේකම්", "link": "secretary.md" },
+            { "text": "නාගරික මන්ත්‍රී", "link": "council_officers.md" },
+            { "text": "කාර්ය මණ්ඩල තොරතුරු", "link": "staff_info.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "සෙවාවන්",
+      "sub_menu": [
+        { "text": "මාර්ග", "link": "roads.md" },
+        { "text": "පොදු වෙළඳපොළ", "link": "public_markets.md" },
+        { "text": "ක්‍රීඩා පහසුකම්", "link": "playgrounds.md" },
+        { "text": "ළදරු පාසල", "link": "preschool.md" },
+        { "text": "පුස්තකාලය", "link": "library.md" },
+        { "text": "වීථි ආලෝකය", "link": "street_lights.md" },
+        { "text": "ප්‍රතිචක්‍රීකරණය", "link": "recycling.md" },
+        { "text": "සෞඛ්‍ය", "link": "health.md" },
+        { "text": "නගර ශාලාව", "link": "town_hall.md" }
+      ]
+    },
+    {
+      "text": "අන්තර්ජාල සේවා",
+      "link": "https://www.wattala.uc.gov.lk/services/"
+    },
+    {
+      "text": "පැමිණිලි",
+      "link": "https://www.wattala.uc.gov.lk/payments/Application/Views/Add_new_Inquary.php"
+    },
+    {
+      "text": "බාගතකිරීම්",
+      "link": "downloads.md"
+    },
+    {
+      "text": "ගැලරිය",
+      "link": "gallery.html"
+    },
+    {
+      "text": "අපව අමතන්න",
+      "sub_menu": [
+        { "text": "දේශපාලන අධිකාරිය", "link": "political_authority.md" },
+        { "text": "කාර්ය මණ්ඩල තොරතුරු", "link": "staff_info.md" },
+        {
+          "text": "විවිධ රාජ්‍ය ආයතන",
+          "sub_menu": [
+            { "text": "පාසල්", "link": "schools.md" }
+          ]
+        }
+      ]
+    }
+  ]
+}

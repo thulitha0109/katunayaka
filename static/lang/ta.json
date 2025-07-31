@@ -1,0 +1,74 @@
+{
+  "name": "கட்டுநாயக்க சீதுவ நகரசபை",
+  "payment": "கட்டணங்கள்",
+  "nav": [
+    {
+      "text": "முகப்பு",
+      "link": "home.html"
+    },
+    {
+      "text": "நகர் சபை",
+      "sub_menu": [
+        { "text": "தொலை நோக்கு மற்றும் பணி", "link": "vision_mission.md" },
+        { "text": "வரலாறு", "link": "history.md" },
+        { "text": "பொதுவான தகவல்", "link": "general_info.md" },
+        {
+          "text": "சபை மேலாண்மை",
+          "sub_menu": [
+            { "text": "தலைவர்", "link": "chairman.md" },
+            { "text": "உப தலைவர்", "link": "vice_chairman.md" },
+            { "text": "செயலாளர்", "link": "secretary.md" },
+            { "text": "சபை அதிகாரிகள்", "link": "council_officers.md" },
+            { "text": "பணியாளர் தகவல்", "link": "staff_info.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "சேவைகள்",
+      "sub_menu": [
+        { "text": "சாலைகள்", "link": "roads.md" },
+        { "text": "பொது சந்தைகள்", "link": "public_markets.md" },
+        { "text": "விளையாட்டு மைதானம்", "link": "playgrounds.md" },
+        { "text": "முன் பள்ளி", "link": "preschool.md" },
+        { "text": "நூலகம்", "link": "library.md" },
+        { "text": "தெரு விளக்குகள்", "link": "street_lights.md" },
+        { "text": "மறு சுழற்சி", "link": "recycling.md" },
+        { "text": "சுகாதாரம்", "link": "health.md" },
+        { "text": "நகர மன்ற மண்டபம்", "link": "town_hall.md" }
+      ]
+    },
+    {
+      "text": "பதிவு",
+      "link": "registration.md"
+    },
+    {
+      "text": "கட்டணங்கள்",
+      "sub_menu": [
+        { "text": "மதிப்பீட்டு கட்டணங்கள்", "link": "assessment_payments.md" },
+        { "text": "கடைக்கூட வாடகை கட்டணங்கள்", "link": "boutique_rent_payments.md" }
+      ]
+    },
+    {
+      "text": "இணைய சேவைகள்",
+      "link": "online_services.md"
+    },
+    {
+      "text": "புகார்கள்",
+      "link": "complaints.md"
+    },
+    {
+      "text": "தொடர்பு கொள்ள",
+      "sub_menu": [
+        { "text": "அரசியல் ஆணையம்", "link": "political_authority.md" },
+        { "text": "பணியாளர் தகவல்", "link": "staff_info.md" },
+        {
+          "text": "மாநில நிறுவனங்கள்",
+          "sub_menu": [
+            { "text": "பள்ளிகள்", "link": "schools.md" }
+          ]
+        }
+      ]
+    }
+  ]
+}

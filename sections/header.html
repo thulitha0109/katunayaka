@@ -1,0 +1,318 @@
+<nav class="container sticky-top navbar navbar-expand-lg navbar-transoarent bg-transparent">
+  <div class="flex-column w-100">
+    <!-- Top Row -->
+    <div class="d-none d-md-flex  justify-content-end gap-2 align-items-center w-100">
+      <div class="contact-item d-flex align-items-center">
+            <i class="bi bi-telephone py-2"></i>
+              <a href="tel:0112253575">0112-253575</a>
+          </div>
+          <div class="contact-item d-flex align-items-center">
+            <i class="bi bi-envelope pt-1"></i>
+              <a href="mailto:uckatunayakeseeduwa@gmail.com">uckatunayakeseeduwa@gmail.com</a>
+          </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center w-100 py-2 top-row">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center" href="#" onclick="loadContent('home.html')">
+        <img src="/static/images/katunayake-logo.jpg" alt="Logo" width="80" height="80" class="me-2">
+            <!-- Council Name -->
+            <h1 id="councilName" class="animated-text-nav d-none d-lg-inline-block"></h1>
+      </a>
+
+
+        
+      <div class="d-flex gap-3  align-items-center">
+          
+          <div class="contact-item d-flex align-items-center">
+            <a href="" class="secn-btn" >
+              <i class="bi bi-credit-card"></i>
+              <span id="PaymentName">Payments</span>
+            </a>
+          </div>
+
+        <!-- Language Selector -->
+        <div class="d-none d-lg-block dropdown language-selector">
+          <button class="primary-btn" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="currentLang">Language</span>
+            <i class="bi bi-chevron-down ms-2"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+            <li><a class="dropdown-item active-lang" href="#" onclick="setLanguage('en')">English</a></li>
+            <li><a class="dropdown-item active-lang active" href="#" onclick="setLanguage('si')">සිංහල</a></li>
+            <li><a class="dropdown-item active-lang" href="#" onclick="setLanguage('ta')">தமிழ்</a></li>
+          </ul>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuItems" aria-controls="menuItems" aria-controls="menuItems" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="bottom-row d-none d-lg-block w-100 mt-2">
+      <div class="navbar-nav-container">
+        <ul class="navbar-nav mx-auto" id="navItem1">
+          <!-- Nav items injected dynamically -->
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-nav-container collapse navbar-collapse" id="menuItems">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">×</button>
+  
+  <div class="d-flex align-items-center w-100 p-3">
+        <!-- Language Selector -->
+        <div class="dropdown language-selector">
+          <button class="primary-btn" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="currentLang">Language</span>
+            <i class="bi bi-chevron-down ms-2"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+            <li><a class="dropdown-item active-lang" href="#" onclick="setLanguage('en')">English</a></li>
+            <li><a class="dropdown-item active-lang active" href="#" onclick="setLanguage('si')">සිංහල</a></li>
+            <li><a class="dropdown-item active-lang" href="#" onclick="setLanguage('ta')">தமிழ்</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="contact-item d-flex align-items-center p-3">
+        <a href="" class="secn-btn" id="Payments" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-credit-card"></i>
+          <span id="PaymentName">Payments</span>
+        </a>
+      </div>
+
+      <ul class="mobile-nav navbar-nav" id="navItem2">
+        <!-- Mobile nav items will be cloned here -->
+      </ul>
+
+        <div class="mobile-nav-content container d-flex align-items-center justify-content-between">
+          <!-- Logo -->
+          <a class="navbar-brand d-flex align-items-center" href="#" onclick="loadContent('home.html')">
+            <img src="/static/images/katunayake-logo.jpg" alt="Logo" width="80" height="80" class="me-2">
+          </a>
+
+          <!-- Social Links -->
+          <div class=" p-2 d-flex align-items-center">
+            <a href="#" class="btn btn-outline-light btn-sm me-1"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-twitter"></i></a>
+          </div>
+          
+        </div>
+
+
+
+        <div class="container contact-info flex mt-4 align-items-center">
+          <div class="contact-item d-flex align-items-center">
+            <i class="bi bi-telephone py-2"></i>
+              <a href="tel:0112253575">0112-253575</a>
+          </div>
+          <div class="contact-item d-flex align-items-center">
+            <i class="bi bi-envelope pt-1"></i>
+              <a href="mailto:uckatunayakeseeduwa@sltnet.lk">uckatunayakeseeduwa@sltnet.lk</a>
+          </div>
+      </div>
+
+    </div>
+
+
+<style>
+/* Base navbar styles */
+
+@media (min-width: 576px) {
+  #header .container {
+    max-width:  100%;
+  }
+}
+@media (min-width: 1400px) {
+  #header .container {
+    max-width:  1380px;
+  }
+}
+
+.navbar {
+  background: white;
+  padding: 0;
+}
+
+.top-row {
+  border-bottom: 1px solid #e5e5e521;
+  padding: 0.5rem 0;
+}
+
+/* Logo */
+.navbar-brand img {
+  width: 80px;
+  height: auto;
+}
+
+/* Council name */
+.animated-text-nav {
+  font-size: 1.6em;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Navigation */
+.bottom-row {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.nav-item {
+  position: relative;
+  margin: 0 0.5rem;
+}
+
+.nav-link {
+  color: #333;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+/* Dropdown menus */
+.bottom-row .dropdown-menu {
+  display: none;
+  position: absolute;
+  background: white;
+  min-width: 200px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: none;
+  margin-top: 0.2rem;
+  z-index: 1000;
+}
+
+.bottom-row .dropdown-menu.show {
+  display: block;
+}
+
+.bottom-row .dropdown-item {
+  padding: 0.75rem 1rem;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.bottom-row .dropdown-item:hover {
+  background: #f8f9fa;
+  color: #007bff;
+}
+
+.navbar-toggler {
+  padding-bottom: 5.8px;
+  color: white;
+  background: #f8f9fa;
+  border: 0 !important;
+}
+
+.mobile-nav-content i{
+    font-size: 24px !important;
+}
+
+/* Mobile menu button */
+.mobile-nav-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Submenu */
+.bottom-row .dropdown-submenu {
+  position: relative;
+}
+
+.bottom-row .dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+}
+
+.bottom-row .dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+.mobile-nav-container .mobile-nav .nav-item .nav-link{
+  color: white;
+  text-decoration: none;
+}
+
+.mobile-nav-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: linear-gradient(90deg, #023265, #0f024de4, #01264d); /* Gradient background */
+    backdrop-filter: blur(10px); /* Glassmorphism blur effect */
+    border-radius: 10px; /* Optional: Rounded corners for a softer look */
+    transition: right 0.4s ease-in-out;
+    z-index: 1050;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px; /* Optional: Add some padding for content spacing */
+    color: #fff; /* Ensures text is visible on dark background */
+}
+
+.mobile-nav-container.show {
+  right: 0; /* Slide in */
+}
+
+/* Ensure proper Bootstrap classes */
+.mobile-nav {
+  list-style: none;
+}
+
+.mobile-nav .nav-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Dropdown submenu for mobile */
+.mobile-nav.dropdown-submenu > .dropdown-menu {
+  display: none;
+  position: relative;
+  border: none;
+  box-shadow: none;
+}
+
+.mobile-nav .dropdown-submenu.show > .dropdown-menu {
+  display: block;
+}
+
+.mobile-nav .dropdown-submenu:hover > .dropdown-menu {
+  position: fixed;
+  right: -92%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+ .nav-link {
+ font-size: var(--font-size-sm);
+  }
+}
+</style>
+

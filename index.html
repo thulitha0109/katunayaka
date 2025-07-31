@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Katunayake Urban Council</title>
+  <!-- Bootstrap CSS -->
+  <link href="static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="static/css/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="static/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    type="image/jpeg"
+    href="/static/images/Kat180.jpg"
+    sizes="32x32"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="/static/images/Kat180.jpg"
+    sizes="180x180"
+  />
+  <link
+    rel="icon"
+    type="image/jpeg"
+    href="/static/images/Kat192.jpg"
+    sizes="192x192"
+  />
+
+  <style>
+   /* Fullscreen overlay */
+  #language-selector {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    transition: opacity 0.5s ease;
+  }
+  #language-selector.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Top bar */
+  .lang-top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .lang-logo-left, .lang-logo-right {
+    max-height: 120px;
+  }
+
+  /* Middle content */
+  .lang-middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #lang-welcome-text {
+    font-weight: bold;
+    margin: 30px 0px;
+  }
+
+  /* Language buttons */
+  .lang-buttons {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+  }
+  .lang-buttons li a {
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .lang-buttons li a:hover {
+    background: #c40045;
+  }
+  .lang-btn-one {
+    background: #008000;
+  }
+    .lang-btn-two {
+    background: #FFAA1D;
+  }
+    .lang-btn-three {
+    background: #007bff;
+  }
+
+
+    /* Initially hide header, content, footer */
+    #header,
+    #content,
+    #footer {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Visible state */
+    .visible {
+      display: block !important;
+      opacity: 1 !important;
+    }
+    @media screen and (max-width: 768px) {
+      .lang-buttons{
+        flex-direction: column;
+        gap: 2.4em;
+      }
+      }
+      
+  </style>
+</head>
+<body>  <!-- Language Selector -->
+<div id="language-selector">
+  <div class="container-fluid h-100 d-flex flex-column justify-content-between">
+    
+    <!-- Top bar -->
+    <div class="lang-top-bar row">
+      <div class="col-12 d-flex justify-content-start align-items-center">
+        <img src="/static/images/katunayake-logo.jpg" alt="Katunayake urban conucil Logo" class="lang-logo-left img-fluid" />
+      </div>
+    </div>
+
+    <!-- Center content -->
+    <div class="row flex-grow-1 justify-content-center align-items-center text-center">
+      <div class="col-12 col-md-10 col-lg-8 lang-middle">
+        <h1 class="animated-text" id="lang-welcome-text">Welcome!</h1>
+        <h2>Katunayake Seeduwa Urban Council</h2>
+        <h2>කටුනායක සීදුව නගර සභාව</h2>
+        <h2>கட்டுநாயக்க சீதுவ நகரசபை</h2>
+        <p>
+          Western Province, Sri Lanka | බස්නාහිර පළාත, ශ්‍රී ලංකාව | மேற்கு மாகாணம், இலங்கை
+        </p>
+        <ul class="lang-buttons flex-wrap justify-content-center d-flex p-2 ">
+          <li><a class="lang-btn-one" href="#" onclick="chooseLang('en'); return false;">English</a></li>
+          <li><a class="lang-btn-two" href="#" onclick="chooseLang('si'); return false;">සිංහල</a></li>
+          <li><a class="lang-btn-three mt-2" href="#" onclick="chooseLang('ta'); return false;">தமிழ்</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Header -->
+  <div id="header">
+  </div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="spinner">
+      <div class="dot dot1"></div>
+      <div class="dot dot2"></div>
+      <div class="dot dot3"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="Section" id="content">
+  </div>
+
+  <!-- Footer -->
+  <div class="footer bg-light" id="footer">
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Hide content sections initially
+      ["header", "content", "footer"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = "none";
+          el.style.opacity = 0;
+        }
+      });
+
+      // Preloader hide on window load
+      window.addEventListener("load", () => {
+        const preloader = document.getElementById("preloader");
+        setTimeout(() => {
+          preloader.classList.add("hidden");
+        }, 1000);
+      });
+    });
+
+    function chooseLang(lang) {
+      // Call your setLanguage function from script.js
+      if (typeof setLanguage === "function") {
+        setLanguage(lang);
+      }
+
+      const selector = document.getElementById("language-selector");
+      selector.classList.add("hidden");
+
+      // Show all content smoothly
+      ["header", "content", "footer"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add("visible");
+        }
+      });
+
+      // Remove language selector from flow after transition
+      setTimeout(() => {
+        selector.style.display = "none";
+      }, 600);
+    }
+  </script>
+  <script>
+  const messages = ["Welcome!", "ආයුබෝවන්!", "வணக்கம்!"];
+  let index = 0;
+  const textEl = document.getElementById("lang-welcome-text");
+
+  setInterval(() => {
+    index = (index + 1) % messages.length;
+    textEl.textContent = messages[index];
+  }, 2000);
+</script>
+
+  <script src="static/js/markdown.js"></script>
+  <script src="static/js/bootstrap.bundle.min.js"></script>
+  <script src="static/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{
+  "name": "Wattala Mabola Urban Council",
+  "payment": "Payments",
+  "nav": [
+    {
+      "text": "Home",
+      "link": "home.html"
+    },
+    {
+      "text": "Urban Council",
+      "sub_menu": [
+        { "text": "Vision and Mission", "link": "vision_mission.md" },
+        { "text": "History", "link": "history.md" },
+        { "text": "General Info", "link": "general_info.md" },
+        {
+          "text": "Council Management",
+          "sub_menu": [
+            { "text": "Chairman", "link": "chairman.md" },
+            { "text": "Vice Chairman", "link": "vice_chairman.md" },
+            { "text": "Secretary", "link": "secretary.md" },
+            { "text": "Council Officers", "link": "council_officers.md" },
+            { "text": "Staff Info", "link": "staff_info.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Services",
+      "sub_menu": [
+        { "text": "Roads", "link": "roads.md" },
+        { "text": "Public Markets", "link": "public_markets.md" },
+        { "text": "Playgrounds", "link": "playgrounds.md" },
+        { "text": "Preschool", "link": "preschool.md" },
+        { "text": "Library", "link": "library.md" },
+        { "text": "Street Lights", "link": "street_lights.md" },
+        { "text": "Recycling", "link": "recycling.md" },
+        { "text": "Health", "link": "health.md" },
+        { "text": "Town Hall", "link": "town_hall.md" }
+      ]
+    },
+    {
+      "text": "Registration",
+      "link": "registration.md"
+    },
+    {
+      "text": "Payments",
+      "sub_menu": [
+        { "text": "Assessment Payments", "link": "assessment_payments.md" },
+        { "text": "Boutique Rent Payments", "link": "boutique_rent_payments.md" }
+      ]
+    },
+    {
+      "text": "Online Services",
+      "link": "online_services.md"
+    },
+    {
+      "text": "Complaints",
+      "link": "complaints.md"
+    },
+    {
+      "text": "Contact Us",
+      "sub_menu": [
+        { "text": "Political Authority", "link": "political_authority.md" },
+        { "text": "Staff Info", "link": "staff_info.md" },
+        {
+          "text": "Various State Institutions",
+          "sub_menu": [
+            { "text": "Schools", "link": "schools.md" }
+          ]
+        }
+      ]
+    }
+  ]
+}
