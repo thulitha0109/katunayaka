@@ -1,4 +1,4 @@
-# Wattala urban cousil project
+# Wattala urban counsil project
 
 ## Static website using markdown files to render in the index.html
 

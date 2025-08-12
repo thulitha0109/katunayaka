@@ -1,70 +1,45 @@
-<footer class="bg-black text-light py-4">
-    <div class="container">
-        <div class="row">
-            <!-- Column 1: Contact Information -->
-            <div class="col-md-3">
-                <h5 class="footer-title" >සම්බන්ධ වන්න</h5>
-                <hr class="border-light">
-                <img class="footer-logo" src="/static/images/katunayake-logo.jpg" alt="Logo" width="120px" height="120px" class="mb-2">
-                <p><i class="bi bi-geo-alt"></i> කොටුගොඩ පාර,සීදූව</p>
-                <p><i class="bi bi-telephone"></i> 0112-253575</p>
-                <p><i class="bi bi-telephone"></i> 0112-253575</p>
-                <p><i class="bi bi-envelope"></i> uckatunayakeseeduwa@gmail.com</p>
-                <div>
-                    <a href="#" class="btn btn-outline-light btn-sm me-1"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-twitter"></i></a>
-                </div>
-            </div>
-  
-            <!-- Column 2: Quick Links -->
-            <div class="col-md-3">
-                <h5>ඉක්මන් සැබැඳියන්</h5>  
-                <hr class="border-light">
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none"> මුල් පිටුව</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> ඉතිහාසය</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> නගර සභාව</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> සෙවාවන්</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> සාමාන්‍ය තොරතුරු </a></li>    
-                    <li><a href="#" class="text-light text-decoration-none"> කාර්යය මණ්ඩල තොරතුරු</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> දේශපාලන අධිකාරිය</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> බාගතකිරීම්</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> ගැලරිය</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> අන්තර්ජාල සේවා</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> ඔබගේ පැමිණිලි</a></li>
-                </ul>
-            </div>
-  
-            <!-- Column 3: Other Links -->
-            <div class="col-md-3">
-                <h5>වෙනත් සැබැඳියන්</h5>
-                <hr class="border-light">
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light text-decoration-none"> ආණ්ඩුකාර කර්යාලය</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> ප්‍රධාන ලේකම් කාර්යාලය </a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> පාලත් පාලන කොමසාරිස් කාර්යාලය</a></li>
-                    <li><a href="#" class="text-light text-decoration-none"> පලාත් පාලන සහකාර කොමසාරිස් කාර්යාලය</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">රාජ්‍ය පරිපාලන හා කළමනාකරණ අමාත්‍යාංශය</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">අල්ලස් හෝ දූෂණ චෝදනා විමර්ශන කොමිෂන් සභාව</a></li>
-                    <li><a href="#" class="text-light text-decoration-none">තොරතුරු දැනගැනීමේ අයිතිය</a></li>
-                </ul>
-            </div>
-  
-            <!-- Column 4: Road Map -->
-            <div class="col-md-3">
-                <h5>සිතියම</h5>
-                <hr class="border-light">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1979.4762422797128!2d79.8783571231061!3d7.131493149471836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f049f0727d87%3A0x1cf63ae871803bcf!2sKatunayake%20Seeduwa%20Urban%20Council!5e0!3m2!1sen!2slk!4v1753175205212!5m2!1sen!2slk" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </iframe>
-            </div>
+<footer class="bg-dark text-light pt-5 pb-3">
+  <div class="container">
+    <div class="row gy-4">
+
+      <!-- Logo & Contact Info -->
+      <div class="col-12 col-md-4 text-center text-md-start">
+        <img src="/static/images/logo-1.png" alt="Logo" width="140" height="140" class="mb-3 footer-logo shadow-sm" />
+        <p><i class="bi bi-geo-alt-fill me-2"></i>කොටුගොඩ පාර, සීදූව</p>
+        <p><i class="bi bi-telephone-fill me-2"></i>0112-253575</p>
+        <p><i class="bi bi-telephone-fill me-2"></i>0112-253575</p>
+        <p><i class="bi bi-envelope-fill me-2"></i>uckatunayakeseeduwa@gmail.com</p>
+      </div>
+
+      <!-- Sitemap: dynamically populated from navbar links -->
+      <div class="col-12 col-md-3">
+        <h5 class="mb-3">සිතියම</h5>
+        <hr class="border-light" />
+        <ul class="list-unstyled" id="footerNav"></ul>
+      </div>
+
+      <!-- Google Map -->
+      <div class="col-12 col-md-5">
+        <h5 class="mb-3">ස්ථානය</h5>
+        <hr class="border-light" />
+        <div class="ratio ratio-4x3 rounded shadow-sm overflow-hidden">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1979.4762422797128!2d79.8783571231061!3d7.131493149471836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f049f0727d87%3A0x1cf63ae871803bcf!2sKatunayake%20Seeduwa%20Urban%20Council!5e0!3m2!1sen!2slk!4v1753175205212!5m2!1sen!2slk"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            style="border:0;"
+          ></iframe>
         </div>
-  
-        <hr class="border-light my-3">
-  
-        <div class="text-center">
-            <p>අවසන්වරට යාවත්කාලින කලේ: ජූලි 08, 2025</p>
-            <p class="mb-0">&copy; 2025 All Rights Reserved. Katunayake Seeduwa Urban Council</p>
-        </div>
+      </div>
+
     </div>
-  </footer>
-  
+
+    <hr class="border-light my-4" />
+
+    <div class="text-center small">
+      <p class="mb-1">අවසන්වරට යාවත්කාලින කලේ: ජූලි 08, 2025</p>
+      <p class="mb-0">&copy; 2025 All Rights Reserved. Katunayake Seeduwa Urban Council</p>
+    </div>
+  </div>
+</footer>

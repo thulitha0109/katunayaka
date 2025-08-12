@@ -1,307 +1,418 @@
-// Load header, footer, and slider on page load
-window.addEventListener('DOMContentLoaded', () => {
-  loadStaticPart('sections/header.html', 'header', () => {
-    loadNav(); // Load nav after header
-    updateActiveLanguage();
+// Configuration and state management
+const CONFIG = {
+  defaultLanguage: 'si',
+  defaultPage: 'home.html',
+  supportedLanguages: ['si', 'en', 'ta'],
+  languageLabels: {
+    'si': 'සිංහල',
+    'en': 'English',
+    'ta': 'தமிழ்'
+  }
+};
+
+// State management
+let currentLanguage = null;
+let currentPage = null;
+let navData = {};
+
+// Cache for loaded content
+const cache = {
+  nav: {},
+  pages: {}
+};
+
+// Initialize application
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await loadStaticComponents(); // Load header/footer
+    initializeFromURL(); // Set language/page
+    await initializeApp(); // Load nav + content
+    setupEventListeners(); // Event listeners
+  } catch (error) {
+    console.error('Application initialization failed:', error);
+    showError('Failed to initialize application');
+  }
+});
+
+// Load static HTML components
+async function loadStaticComponents() {
+  const components = [
+    { file: 'sections/header.html', target: 'header' },
+    { file: 'sections/footer.html', target: 'footer' }
+  ];
+
+  await Promise.all(components.map(async ({ file, target }) => {
+    try {
+      const response = await fetch(file);
+      if (!response.ok) throw new Error(`Failed to load ${file}`);
+      const html = await response.text();
+      document.getElementById(target).innerHTML = html;
+    } catch (error) {
+      console.warn(`Could not load ${file}:`, error);
+    }
+  }));
+}
+
+// Initialize language and page from URL parameters
+function initializeFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const langParam = urlParams.get('lang');
+  const pageParam = urlParams.get('page');
+
+  currentLanguage = validateLanguage(langParam) ||
+                   validateLanguage(localStorage.getItem('language')) ||
+                   CONFIG.defaultLanguage;
+
+  currentPage = pageParam || CONFIG.defaultPage;
+  localStorage.setItem('language', currentLanguage);
+}
+
+function validateLanguage(lang) {
+  return CONFIG.supportedLanguages.includes(lang) ? lang : null;
+}
+
+// Initialize app
+async function initializeApp() {
+  try {
+    await loadNavigation(currentLanguage);
+    await loadContent(currentPage, currentLanguage);
+    updateLanguageUI();
+  } catch (error) {
+    console.error('App initialization failed:', error);
+    showError('Failed to load content');
+  }
+}
+
+// Load navigation data with caching
+async function loadNavigation(lang = currentLanguage) {
+  try {
+    if (cache.nav[lang]) {
+      navData = cache.nav[lang];
+      renderNavigation(navData);
+      return;
+    }
+
+    const response = await fetch(`static/lang/${lang}.json`);
+    if (!response.ok) throw new Error(`Navigation file not found for language: ${lang}`);
+
+    navData = await response.json();
+    cache.nav[lang] = navData;
+    renderNavigation(navData);
+
+  } catch (error) {
+    console.error(`Failed to load navigation for ${lang}:`, error);
+    if (lang !== CONFIG.defaultLanguage) {
+      console.warn(`Falling back to ${CONFIG.defaultLanguage}`);
+      await loadNavigation(CONFIG.defaultLanguage);
+    }
+  }
+}
+
+// Render navigation
+function renderNavigation(data) {
+  updateTextContent('councilName', data.name);
+  updateTextContent('PaymentName', data.payment);
+
+  const navContainers = ['navItem1', 'navItem2','footerNav'];
+  navContainers.forEach(id => {
+    const container = document.getElementById(id);
+    if (container) container.innerHTML = '';
   });
 
-  loadStaticPart('sections/footer.html', 'footer');
-
-  // Get language and page from URL if available
-  const urlParams = new URLSearchParams(window.location.search);
-  const pageParam = urlParams.get('page');
-  const langParam = urlParams.get('lang');
-  
-  const lang = langParam || localStorage.getItem('language') || 'si';
-  const page = pageParam || 'home.html';
-  
-  loadContent(page, lang);
-});
-
-// Load static HTML parts
-function loadStaticPart(filePath, targetId, callback = null) {
-  fetch(filePath)
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById(targetId).innerHTML = html;
-      if (callback) callback();
-    });
-}
-
-// Load .md or .html content or navigate to URLs
-function loadContent(pageName, lang = null) {
-  if (!lang) lang = localStorage.getItem('language') || 'si';
-
-  // Default to 'home' if no page name is provided
-  if (!pageName) pageName = 'home.html';
-
-  // Check if the pageName is a URL (starts with http:// or https://)
-  if (pageName.startsWith('http://') || pageName.startsWith('https://')) {
-    // External URL - redirect the browser
-    window.open(pageName, '_blank');
-    return;
-  }
-
-  // Internal page handling
-  // Determine extension based on convention (e.g., all .md pages)
-  let fileName = `${pageName}`; // default as is
-  if (pageName === 'contact' || pageName === 'about') {
-    fileName = `${pageName}.md`; // example of markdown file exceptions
-  }
-
-  const filePath = `pages/${lang}/${fileName}`;
-  fetch(filePath)
-    .then(response => {
-      if (!response.ok) throw new Error('Page not found');
-      const ext = fileName.split('.').pop();
-      return response.text().then(data => ({ ext, data }));
-    })
-    .then(({ ext, data }) => {
-      const contentDiv = document.getElementById('content');
-      contentDiv.innerHTML = ext === 'md' ? marked.parse(data) : data;
-      
-      // Update browser URL without page reload using History API
-      const urlPath = `?page=${pageName}&lang=${lang}`;
-      window.history.pushState({ page: pageName, lang }, '', urlPath);
-    })
-    .catch(error => {
-      document.getElementById('content').innerHTML = `<p>Error: ${error.message}</p>`;
-    });
-}
-
-// Load nav dynamically
-// Function to close the mobile navigation slider
-function closeMobileNav() {
-  document.getElementById('menuItems').classList.remove('show');
-}
-
-// Attach closeMobileNav function to each nav-item dynamically
-function attachCloseNav() {
-  // Get all the nav items
-  const navItems = document.getElementsByClassName('nav-item');
-  
-  // Loop through each nav item and add the onclick event
-  for (let i = 0; i < navItems.length; i++) {
-    navItems[i].onclick = closeMobileNav; // Set the onclick event to close the nav
-  }
-}
-
-// Close the nav when clicking outside the mobile menu
-document.addEventListener('click', function(event) {
-  let menu = document.getElementById('menuItems');
-  let toggleButton = document.querySelector('.mobile-menu');
-  let mobileNav = document.querySelector('.mobile-nav-container');
-
-  // If the click is outside the mobile menu or the menu toggle button, close the menu
-  if (!mobileNav.contains(event.target) && !toggleButton.contains(event.target)) {
-    closeMobileNav();
-  }
-});
-
-function loadNav(lang = null) {
-  if (!lang) lang = localStorage.getItem('language') || 'si';
-
-  fetch(`static/lang/${lang}.json`)
-    .then(response => response.json())
-    .then(data => {
-      // Update council name
-      const councilName = document.getElementById('councilName');
-      if (councilName) councilName.textContent = data.name;
-      const icon = document.getElementById('icon');
-      if (icon) icon.textContent = data.name;
-
-        // Update council name
-        const PaymentName = document.getElementById('PaymentName');
-        if (PaymentName) PaymentName.textContent = data.payment;
-
-      // Update nav links
-      const navContainer1 = document.getElementById('navItem1');
-      const navContainer2 = document.getElementById('navItem2');
-      
-      if (navContainer1) navContainer1.innerHTML = '';
-      if (navContainer2) navContainer2.innerHTML = '';
-
-      // Build main nav
-      if (navContainer1 && navContainer2) {
+  if (data.nav && Array.isArray(data.nav)) {
+    navContainers.forEach(containerId => {
+      const container = document.getElementById(containerId);
+      if (container) {
         data.nav.forEach(item => {
-          const navItem1 = createNavItem(item);
-          const navItem2 = createNavItem(item);
-          
-          navContainer1.appendChild(navItem1);
-          navContainer2.appendChild(navItem2);
+          const navItem = createNavItem(item);
+          container.appendChild(navItem);
         });
       }
-    })
-    .catch(err => {
-      console.error('Failed to load nav:', err);
     });
+  }
 }
 
-// Recursive function to create nav items
+function updateTextContent(elementId, text) {
+  const element = document.getElementById(elementId);
+  if (element && text) {
+    element.textContent = text;
+  }
+}
+
 function createNavItem(item) {
-  let navItem = document.createElement('li');
+  const navItem = document.createElement('li');
   navItem.classList.add('nav-item');
 
-  // Check for submenus
-  if (item.sub_menu) {
+  if (item.sub_menu && Array.isArray(item.sub_menu)) {
     navItem.classList.add('dropdown');
-
-    let dropdownToggle = document.createElement('a');
-    dropdownToggle.classList.add('nav-link', 'dropdown-toggle');
-    dropdownToggle.href = '#';
-    dropdownToggle.setAttribute('role', 'button');
-    dropdownToggle.setAttribute('data-bs-toggle', 'dropdown');
-    dropdownToggle.textContent = item.text;
-    navItem.appendChild(dropdownToggle);
-
-    let dropdownMenu = document.createElement('ul');
-    dropdownMenu.classList.add('dropdown-menu');
-
-    // Recursively create sub-items
-    item.sub_menu.forEach(sub => {
-      let subNavItem = document.createElement('li');
-
-      // Check for deeper submenus
-      if (sub.sub_menu) {
-        subNavItem.classList.add('dropdown-submenu'); // You can style this
-        
-        let subDropdownToggle = document.createElement('a');
-        subDropdownToggle.classList.add('dropdown-item', 'dropdown-toggle');
-        subDropdownToggle.href = '#';
-        subDropdownToggle.textContent = sub.text;
-        subNavItem.appendChild(subDropdownToggle);
-
-        let subDropdownMenu = document.createElement('ul');
-        subDropdownMenu.classList.add('dropdown-menu');
-
-        sub.sub_menu.forEach(subSub => {
-          let subSubItem = document.createElement('li');
-          let subSubLink = document.createElement('a');
-          subSubLink.classList.add('dropdown-item');
-          
-          // Check if it's an external URL
-          if (subSub.link && (subSub.link.startsWith('http://') || subSub.link.startsWith('https://'))) {
-            subSubLink.href = subSub.link;
-            subSubLink.setAttribute('target', '_blank');
-            subSubLink.setAttribute('onclick', 'closeMobileNav()');
-          } else {
-            subSubLink.href = '#';
-            subSubLink.setAttribute('onclick', `closeMobileNav(); loadContent('${subSub.link}')`);
-          }
-          
-          subSubLink.textContent = subSub.text;
-          subSubItem.appendChild(subSubLink);
-          subDropdownMenu.appendChild(subSubItem);
-        });
-
-        subNavItem.appendChild(subDropdownMenu);
-      } else {
-        // Simple dropdown item
-        let subLink = document.createElement('a');
-        subLink.classList.add('dropdown-item');
-        
-        // Check if it's an external URL
-        if (sub.link && (sub.link.startsWith('http://') || sub.link.startsWith('https://'))) {
-          subLink.href = sub.link;
-          subLink.setAttribute('target', '_blank');
-          subLink.setAttribute('onclick', 'closeMobileNav()');
-        } else {
-          subLink.href = '#';
-          subLink.setAttribute('onclick', `closeMobileNav(); loadContent('${sub.link}')`);
-        }
-        
-        subLink.textContent = sub.text;
-        subNavItem.appendChild(subLink);
-      }
-
-      dropdownMenu.appendChild(subNavItem);
-    });
-
-    navItem.appendChild(dropdownMenu);
-  } 
-  // Normal link
-  else {
-    let normalLink = document.createElement('a');
-    normalLink.classList.add('nav-link');
-    
-    // Check if it's an external URL
-    if (item.link && (item.link.startsWith('http://') || item.link.startsWith('https://'))) {
-      normalLink.href = item.link;
-      normalLink.setAttribute('target', '_blank');
-      normalLink.setAttribute('onclick', 'closeMobileNav()');
-    } else {
-      normalLink.href = '#';
-      normalLink.setAttribute('onclick', `closeMobileNav(); loadContent('${item.link}')`);
-    }
-    
-    normalLink.textContent = item.text;
-    navItem.appendChild(normalLink);
+    navItem.appendChild(createDropdownToggle(item.text));
+    navItem.appendChild(createDropdownMenu(item.sub_menu));
+  } else {
+    navItem.appendChild(createNavLink(item.text, item.link));
   }
-
   return navItem;
 }
 
-// Change language
-function setLanguage(lang) {
-  const links = document.querySelectorAll('.active-lang');
-  links.forEach(link => link.classList.remove('active'));
-
-  if (lang === 'en') {
-    links[0].classList.add('active');
-  } else if (lang === 'si') {
-    links[1].classList.add('active');
-  } else if (lang === 'ta') {
-    links[2].classList.add('active');
-  }
-  
-  localStorage.setItem('language', lang);
-  loadNav(lang);
-  loadContent('home.html', lang);
+function createDropdownToggle(text) {
+  const toggle = document.createElement('a');
+  toggle.classList.add('nav-link', 'dropdown-toggle');
+  toggle.href = '#';
+  toggle.setAttribute('role', 'button');
+  toggle.setAttribute('data-bs-toggle', 'dropdown');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.textContent = text;
+  return toggle;
 }
 
-// Update active language indication
-function updateActiveLanguage() {
-  const lang = localStorage.getItem('language') || 'si';
-  const links = document.querySelectorAll('.active-lang');
-  
-  links.forEach(link => link.classList.remove('active'));
-  
-  if (lang === 'en') {
-    links[0]?.classList.add('active');
-  } else if (lang === 'si') {
-    links[1]?.classList.add('active');
-  } else if (lang === 'ta') {
-    links[2]?.classList.add('active');
-  }
-}
-function switchYear(section, year, btn) {
-  // Hide all year content for this section
-  document.querySelectorAll(`#${section}-2023, #${section}-2024, #${section}-2025`).forEach(content => {
-      content.classList.remove('active');
+function createDropdownMenu(items) {
+  const menu = document.createElement('ul');
+  menu.classList.add('dropdown-menu');
+
+  items.forEach(item => {
+    const menuItem = document.createElement('li');
+
+    if (item.sub_menu && Array.isArray(item.sub_menu)) {
+      menuItem.classList.add('dropdown-submenu');
+      const subToggle = document.createElement('a');
+      subToggle.classList.add('dropdown-item', 'has-submenu');
+      subToggle.href = '#';
+      subToggle.textContent = item.text;
+      menuItem.appendChild(subToggle);
+      menuItem.appendChild(createDropdownMenu(item.sub_menu));
+    } else {
+      menuItem.appendChild(createDropdownLink(item.text, item.link));
+    }
+    menu.appendChild(menuItem);
   });
-  
-  // Show selected year content
-  document.getElementById(`${section}-${year}`).classList.add('active');
-  
-  // Update button styles
+
+  return menu;
+}
+
+function createDropdownLink(text, link) {
+  const dropdownLink = document.createElement('a');
+  dropdownLink.classList.add('dropdown-item');
+  dropdownLink.textContent = text;
+
+  if (isExternalURL(link)) {
+    dropdownLink.href = link;
+    dropdownLink.target = '_blank';
+    dropdownLink.rel = 'noopener noreferrer';
+    dropdownLink.addEventListener('click', closeMobileNav);
+  } else {
+    dropdownLink.href = '#';
+    dropdownLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeMobileNav();
+      if (link) loadContent(link, currentLanguage);
+    });
+  }
+  return dropdownLink;
+}
+
+function createNavLink(text, link) {
+  const navLink = document.createElement('a');
+  navLink.classList.add('nav-link');
+  navLink.textContent = text;
+
+  if (isExternalURL(link)) {
+    navLink.href = link;
+    navLink.target = '_blank';
+    navLink.rel = 'noopener noreferrer';
+    navLink.addEventListener('click', closeMobileNav);
+  } else {
+    navLink.href = '#';
+    navLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeMobileNav();
+      if (link) loadContent(link, currentLanguage);
+    });
+  }
+  return navLink;
+}
+
+function isExternalURL(url) {
+  return url && (url.startsWith('http://') || url.startsWith('https://'));
+}
+
+// Load page content with caching
+async function loadContent(pageName, lang) {
+  lang = lang || currentLanguage;
+  if (!pageName) pageName = CONFIG.defaultPage;
+
+  if (isExternalURL(pageName)) {
+    window.open(pageName, '_blank', 'noopener,noreferrer');
+    return;
+  }
+
+  const cacheKey = `${lang}-${pageName}`;
+
+  try {
+    if (cache.pages[cacheKey]) {
+      renderContent(cache.pages[cacheKey]);
+      updateURL(pageName, lang);
+      currentPage = pageName;
+      return;
+    }
+
+    let fileName = pageName;
+    if (['contact', 'about'].includes(pageName.replace('.html', ''))) {
+      fileName = pageName.replace('.html', '') + '.md';
+    }
+
+    const filePath = `pages/${lang}/${fileName}`;
+    const response = await fetch(filePath);
+    if (!response.ok) throw new Error(`Page not found: ${filePath}`);
+
+    const content = await response.text();
+    const extension = fileName.split('.').pop();
+
+    let processedContent;
+    if (extension === 'md' && typeof marked !== 'undefined') {
+      processedContent = marked.parse(content);
+    } else {
+      processedContent = content;
+    }
+
+    cache.pages[cacheKey] = processedContent;
+    renderContent(processedContent);
+    updateURL(pageName, lang);
+    currentPage = pageName;
+
+  } catch (error) {
+    console.error(`Failed to load content: ${pageName}`, error);
+    showError(`Failed to load page: ${pageName}`);
+  }
+}
+
+function renderContent(content) {
+  const contentDiv = document.getElementById('content');
+  if (contentDiv) {
+    contentDiv.innerHTML = content;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function updateURL(page, lang) {
+  const urlPath = `?page=${page}&lang=${lang}`;
+  const state = { page, lang };
+  window.history.pushState(state, '', urlPath);
+}
+
+async function setLanguage(newLang) {
+  if (!validateLanguage(newLang) || newLang === currentLanguage) return;
+
+  try {
+    showLoading();
+    currentLanguage = newLang;
+    localStorage.setItem('language', newLang);
+
+    await Promise.all([
+      loadNavigation(newLang),
+      loadContent(currentPage, newLang)
+    ]);
+
+    updateLanguageUI();
+    updateURL(currentPage, newLang);
+
+  } catch (error) {
+    console.error('Language switch failed:', error);
+    showError('Failed to switch language');
+  } finally {
+    hideLoading();
+  }
+}
+
+function updateLanguageUI() {
+  document.querySelectorAll('#currentLang').forEach(el => {
+    el.textContent = CONFIG.languageLabels[currentLanguage];
+  });
+
+  document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.classList.remove('active');
+    const onclick = item.getAttribute('onclick');
+    if (onclick && onclick.includes(`'${currentLanguage}'`)) {
+      item.classList.add('active');
+    }
+  });
+}
+
+// Mobile nav
+function toggleMobileNav() {
+  const menu = document.getElementById('menuItems');
+  if (menu) menu.classList.toggle('show');
+}
+
+function closeMobileNav() {
+  const menu = document.getElementById('menuItems');
+  if (menu) menu.classList.remove('show');
+}
+
+// Event listeners
+function setupEventListeners() {
+  window.addEventListener('popstate', (event) => {
+    if (event.state) {
+      currentLanguage = event.state.lang || CONFIG.defaultLanguage;
+      currentPage = event.state.page || CONFIG.defaultPage;
+      initializeApp();
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    const menu = document.getElementById('menuItems');
+    const toggleButton = document.querySelector('.mobile-menu');
+    if (menu && toggleButton && !menu.contains(event.target) && !toggleButton.contains(event.target)) {
+      closeMobileNav();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMobileNav();
+  });
+}
+
+// Utility feedback
+function showLoading() { console.log('Loading...'); }
+function hideLoading() { console.log('Loading complete'); }
+
+function showError(message) {
+  console.error(message);
+  const contentDiv = document.getElementById('content');
+  if (contentDiv) {
+    contentDiv.innerHTML = `
+      <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error</h4>
+        <p>${message}</p>
+        <hr>
+        <p class="mb-0">Please try refreshing the page or contact support if the problem persists.</p>
+      </div>
+    `;
+  }
+}
+
+// Year switch
+function switchYear(section, year, btn) {
+  document.querySelectorAll(`#${section}-2023, #${section}-2024, #${section}-2025`)
+    .forEach(content => content.classList.remove('active'));
+
+  const targetContent = document.getElementById(`${section}-${year}`);
+  if (targetContent) targetContent.classList.add('active');
+
   const parentDiv = btn.parentNode;
-  const buttons = parentDiv.querySelectorAll('button');
-  
-  buttons.forEach(button => {
+  if (parentDiv) {
+    const buttons = parentDiv.querySelectorAll('button');
+    buttons.forEach(button => {
       button.classList.remove('btn-primary');
       button.classList.add('btn-outline-primary');
-  });
-  
-  btn.classList.remove('btn-outline-primary');
-  btn.classList.add('btn-primary');
+    });
+    btn.classList.remove('btn-outline-primary');
+    btn.classList.add('btn-primary');
+  }
 }
 
-// Initialize Bootstrap tooltips
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
-      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-      tooltipTriggerList.map(function(tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl);
-      });
-  }
-});
+
+// Export to global scope safely
+window.loadContent = loadContent;
+window.setLanguage = setLanguage;
+window.toggleMobileNav = toggleMobileNav;
+window.closeMobileNav = closeMobileNav;
+window.switchYear = switchYear;

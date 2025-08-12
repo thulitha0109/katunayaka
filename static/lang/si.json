@@ -1,5 +1,5 @@
 {
-  "name": "කටුනායක සීදුව නගර සභාව",
+  "name": "කටුනායක සීදූව නගර සභාව",
   "payment": "ගෙවීම්",
   "nav": [
     {
@@ -7,65 +7,68 @@
       "link": "home.html"
     },
     {
-      "text": "නගර සභාව",
+      "text": "සභාව",
+      "link": "#",
       "sub_menu": [
-        { "text": "දර්ශනය සහ මෙහෙවර", "link": "vision_mission.md" },
-        { "text": "ඉතිහාසය", "link": "history.md" },
-        { "text": "සාමාන්‍ය තොරතුරු", "link": "general_info.md" },
         {
-          "text": "සභා කළමනාකරණය",
-          "sub_menu": [
-            { "text": "සභාපති", "link": "chairman.md" },
-            { "text": "උප සභාපති", "link": "vice_chairman.md" },
-            { "text": "ලේකම්", "link": "secretary.md" },
-            { "text": "නාගරික මන්ත්‍රී", "link": "council_officers.md" },
-            { "text": "කාර්ය මණ්ඩල තොරතුරු", "link": "staff_info.md" }
-          ]
+          "text": "දැක්ම සහ මෙහෙවර",
+          "link": "vision_mission.md"
+        },
+        {
+          "text": "බල ප්‍රදේශයේ ‍‍ඓතිහාසික හා පාරිස‍රික වැදගත්කම",
+          "link": "historical-importance.html"
+        },
+        {
+          "text": "සාමාජීය හා භූගෝලීය පසුබිම",
+          "link": "social-geographical-background.html"
+        },
+        {
+          "text": "මායිම්",
+          "link": "boundaries.html"
+        },
+        {
+          "text": "කටුනායක සීදූව නගර සභාව සංස්ථාපනය කිරීම",
+          "link": "council-establishment.html"
+        },
+        {
+          "text": "ග්‍රාම නිලධාරී කොට්ඨාශ",
+          "link": "grama-niladhari-divisions.html"
+        },
+        {
+          "text": "සභාපතිතුමගේ පණිවිඩය",
+          "link": "https://katunayakeseeduwa.uc.gov.lk/secretary/index.html"
         }
       ]
-    },
-    {
-      "text": "සෙවාවන්",
-      "sub_menu": [
-        { "text": "මාර්ග", "link": "roads.md" },
-        { "text": "පොදු වෙළඳපොළ", "link": "public_markets.md" },
-        { "text": "ක්‍රීඩා පහසුකම්", "link": "playgrounds.md" },
-        { "text": "ළදරු පාසල", "link": "preschool.md" },
-        { "text": "පුස්තකාලය", "link": "library.md" },
-        { "text": "වීථි ආලෝකය", "link": "street_lights.md" },
-        { "text": "ප්‍රතිචක්‍රීකරණය", "link": "recycling.md" },
-        { "text": "සෞඛ්‍ය", "link": "health.md" },
-        { "text": "නගර ශාලාව", "link": "town_hall.md" }
-      ]
-    },
-    {
-      "text": "අන්තර්ජාල සේවා",
-      "link": "https://www.wattala.uc.gov.lk/services/"
-    },
-    {
-      "text": "පැමිණිලි",
-      "link": "https://www.wattala.uc.gov.lk/payments/Application/Views/Add_new_Inquary.php"
-    },
-    {
-      "text": "බාගතකිරීම්",
-      "link": "downloads.md"
     },
     {
       "text": "ගැලරිය",
-      "link": "gallery.html"
+      "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1862"
     },
     {
-      "text": "අපව අමතන්න",
+      "text": "සේවාවන්",
+      "link": "#",
       "sub_menu": [
-        { "text": "දේශපාලන අධිකාරිය", "link": "political_authority.md" },
-        { "text": "කාර්ය මණ්ඩල තොරතුරු", "link": "staff_info.md" },
         {
-          "text": "විවිධ රාජ්‍ය ආයතන",
-          "sub_menu": [
-            { "text": "පාසල්", "link": "schools.md" }
-          ]
+          "text": "පරමාර්ථ ප්‍රකාශනය",
+          "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1711"
         }
       ]
+    },
+    {
+      "text": "අයදුම්පත්",
+      "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1855"
+    },
+    {
+      "text": "පුස්තකාල සේවා",
+      "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1862"
+    },
+        {
+      "text": "මහජන පැමිණිලි",
+      "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1862"
+    },
+    {
+      "text": "අප අමතන්න",
+      "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1079"
     }
   ]
 }
