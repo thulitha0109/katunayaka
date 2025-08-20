@@ -533,7 +533,7 @@
 }
 
 .carousel-item img {
-    height: 300px;
+    height: 520px;
     object-fit: cover;
     width: 100%;
 }
@@ -1047,6 +1047,7 @@
 
   .moving-left {
   animation: moveLeft 4s infinite alternate ease-in-out;
+  width: 90%;
 }
 
 .moving-right {

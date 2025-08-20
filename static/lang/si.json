@@ -7,8 +7,8 @@
       "link": "home.html"
     },
     {
-      "text": "සභාව",
-      "link": "#",
+      "text": "අප ගැන",
+      "link": "about.html",
       "sub_menu": [
         {
           "text": "දැක්ම සහ මෙහෙවර",
@@ -45,29 +45,19 @@
       "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1862"
     },
     {
+      "text": "බාගත කිරීම්",
+      "link": "#"
+    },
+    {
       "text": "සේවාවන්",
-      "link": "#",
-      "sub_menu": [
-        {
-          "text": "පරමාර්ථ ප්‍රකාශනය",
-          "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1711"
-        }
-      ]
+      "link": "#"
     },
     {
-      "text": "අයදුම්පත්",
-      "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1855"
-    },
-    {
-      "text": "පුස්තකාල සේවා",
-      "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1862"
-    },
-        {
-      "text": "මහජන පැමිණිලි",
+      "text": "විමසීම්",
       "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1862"
     },
     {
-      "text": "අප අමතන්න",
+      "text": "පුස්තකාල",
       "link": "https://katunayakeseeduwa.uc.gov.lk/?page_id=1079"
     }
   ]

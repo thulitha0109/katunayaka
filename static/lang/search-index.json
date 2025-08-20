@@ -1,0 +1,12 @@
+[
+  {
+    "title": "මුල් පිටුව",
+    "url": "index.html",
+    "content": "This is the homepage content..."
+  },
+  {
+    "title": "අප ගැන",
+    "url": "about.html",
+    "content": "About us page with details..."
+  }
+]
